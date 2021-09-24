@@ -1,0 +1,10 @@
+.bodyUsers {
+    display: flex;
+    justify-content: row;
+    padding: 1%;
+
+    .nameUsers, .numberUsers, .companyUsers{
+        margin: 0 1%;
+        width: 33%;
+    }
+}
