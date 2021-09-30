@@ -1,13 +1,11 @@
-import { todoReducer } from './todoReducer';
-import { userReducer } from './userReducer';
-import { combineReducers } from "redux";
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import {autorReducer} from "./autorReducer"
+import { combineReducers } from "redux";
+
 
 export const rootReducer = combineReducers({
-    user: userReducer,
-    todo: todoReducer,
+    autor: autorReducer,
 })
 
 export type rootState = ReturnType<typeof rootReducer>
-
 export const useTypeSelector: TypedUseSelectorHook<rootState> = useSelector  

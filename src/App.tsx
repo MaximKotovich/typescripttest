@@ -1,16 +1,20 @@
 import React from 'react';
-import UserList from './components/UserList';
 import './App.scss';
-import TodoList from './components/TodoList';
+import Autor from "./store/components/autor"
+import HomePage from "./store/components/homePage";
+
 
 function App() {
-  return (
-    <div className="App">
-        <TodoList/>
-        <UserList />
-        
-    </div>
-  );
+
+
+  if (localStorage.getItem("isLogined")){ 
+  return(
+    <Autor></Autor>
+  )}
+  return(
+    <HomePage></HomePage>  
+  )
+
 }
 
 export default App;
