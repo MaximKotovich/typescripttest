@@ -12,8 +12,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useTypeSelector } from '../reducers/combineReducer';
 import axios from "axios"
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { autorActionTypes } from '../reducers/autorReducer';
+
 
 
 const Autor = () =>{
@@ -49,26 +50,26 @@ const Autor = () =>{
           // fetchAutor(newAutor);
           // console.log(newAutor);
       
-                const response = axios.post("http://localhost:3000/user/auth/login",{
-                  name: data.get('email'),
-                  pass: data.get('password'),
-              })
+                const response = axios.post("http://localhost:3000/user/auth/login",
+                  newAutor,{ withCredentials: true }
+              )              
               .then(function (response) {
-                // console.log(response.status)
                 if (response.status === 201){
-                  dispatch({type: autorActionTypes.FETCH_AUTOR_SUCCESS, payload: response})
+                 localStorage.setItem("isLogined",JSON.stringify(true))
+                  dispatch({type: autorActionTypes.FETCH_AUTOR_SUCCESS, payload: newAutor})
                 }
+                
               })
               .catch((e) => {
                 alert("неверный логин или пароль")
                 dispatch({type: autorActionTypes.FETCH_AUTOR_ERROR, payload: "Произошла ошибка"})
               });
-      
+              
+             
               }
-              localStorage.setItem("isLogined",JSON.stringify(state.isLogined))
             // console.log("isLogined:",state.isLogined)
       
-      
+            
       
       
       
@@ -119,7 +120,6 @@ const Autor = () =>{
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
-                    // onClick = {() => clickBut()}
                     >
                     Sign In
                   </Button>
