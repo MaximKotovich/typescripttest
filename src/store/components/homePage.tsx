@@ -40,7 +40,7 @@ const HomePage = () => {
     dispatch({type: autorActionTypes.FETCH_AUTOR})
   }
 
-    const data = axios.get("http://localhost:3000/topic/getTopicChilds?id=1701")
+    const data = axios.get("http://localhost:3000/topic/getTopicChilds", { params: { id: topicId } })
   .then(function (data) {
      console.log(data)
        dispatch({type: caseTypes.VISIBLE_ALL_CASE, payload: data})

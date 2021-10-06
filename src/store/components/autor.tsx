@@ -14,6 +14,7 @@ import { useTypeSelector } from '../reducers/combineReducer';
 import axios from "axios"
 import { useDispatch, useSelector} from "react-redux";
 import { autorActionTypes } from '../reducers/autorReducer';
+import Cookies from 'universal-cookie'
 
 
 
@@ -53,10 +54,12 @@ const Autor = () =>{
                 const response = axios.post("http://localhost:3000/user/auth/login",
                   newAutor,{ withCredentials: true }
               )              
-              .then(function (response) {
+              .then((response) => {
                 if (response.status === 201){
                  localStorage.setItem("isLogined",JSON.stringify(true))
                   dispatch({type: autorActionTypes.FETCH_AUTOR_SUCCESS, payload: newAutor})
+                  const cookies = new Cookies()
+                  return cookies.get('jwt')
                 }
                 
               })
