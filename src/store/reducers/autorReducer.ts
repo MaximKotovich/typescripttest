@@ -1,6 +1,6 @@
 
 
-interface autorState {
+export interface autorState {
     autor: string[];
     isLogined: boolean;
     error: null|string;
@@ -9,14 +9,17 @@ interface autorState {
 
 
 export enum autorActionTypes {
-    // FETCH_AUTOR = "FETCH_AUTOR",
+    FETCH_AUTOR = "FETCH_AUTOR",
     FETCH_AUTOR_SUCCESS = "FETCH_USERS_SUCCESS",
     FETCH_AUTOR_ERROR = "FETCH_AUTOR_ERROR",
+    // FETCH_AUTOR_EXIT = "FETCH_AUTOR_EXIT",
+
+
 }
 
-// interface fetchAutor {
-//     type: autorActionTypes.FETCH_AUTOR;
-// }
+interface fetchAutor {
+    type: autorActionTypes.FETCH_AUTOR;
+}
 interface fetchAutorSuccess {
     type: autorActionTypes.FETCH_AUTOR_SUCCESS;
     payload: string[];
@@ -26,24 +29,26 @@ interface fetchAutorError {
     payload: string;
 }
 
+
 const initialState: autorState = {
     autor: [],
-    isLogined: false,
+    isLogined: Boolean(localStorage.getItem("isLogined")),
     error: null,
 }
 
 
 
-export type autorAction = fetchAutorSuccess | fetchAutorError
+
+export type autorAction = fetchAutor|fetchAutorSuccess| fetchAutorError 
 
 export const autorReducer = (state = initialState, action:autorAction): autorState => {
     switch (action.type){
-        // case autorActionTypes.FETCH_AUTOR:
-        //     return {isLogined: false, error: null, autor: []}
+        case autorActionTypes.FETCH_AUTOR:
+            return {isLogined: false, error: null, autor: []}
         case autorActionTypes.FETCH_AUTOR_SUCCESS:
             return {isLogined: true, error: null, autor: action.payload}
         case autorActionTypes.FETCH_AUTOR_ERROR:
-            return {isLogined: false, error: action.payload, autor: []}
+            return {isLogined: false, error: action.payload, autor: []}       
         default: return state
     }
 }
